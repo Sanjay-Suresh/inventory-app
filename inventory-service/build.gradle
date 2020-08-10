@@ -9,6 +9,11 @@ group = 'com.cloud.services.inventory'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+apply plugin: 'war'
+apply plugin: 'application'
+
+mainClassName = 'com.cloud.services.inventory.InventoryServiceApplication'
+
 repositories {
 	mavenCentral()
 }
@@ -24,4 +29,9 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+bootWar {
+	baseName = 'inventory-service'
+	archiveName 'inventory-service.war'
 }

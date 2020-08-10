@@ -1,0 +1,7 @@
+version: '3'
+services:
+    inventory-service:
+        container_name: inventory-service
+        build: ./inventory-service
+        ports:
+            - "8080:8080"
