@@ -35,3 +35,10 @@ bootWar {
 	baseName = 'inventory-service'
 	archiveName 'inventory-service.war'
 }
+
+task copyDBMigration(type: Copy) {
+	from 'src/main/resources/db'
+    into 'build/db'
+}
+
+build.dependsOn copyDBMigration

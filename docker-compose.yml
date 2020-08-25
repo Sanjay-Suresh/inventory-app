@@ -1,7 +1,34 @@
 version: '3'
 services:
+    servicesdb:
+        image: mysql:8.0.17
+        container_name: servicesdb
+        environment:
+            MYSQL_ROOT_PASSWORD: rootPwd
+        ports:
+            - "3308:3306"
+        volumes:
+            - dbdata:/var/lib/mysql
+
     inventory-service:
         container_name: inventory-service
         build: ./inventory-service
         ports:
             - "8080:8080"
+        depends_on:
+            - servicesdb
+
+    flyway:
+        image: flyway/flyway
+        container_name: flyway
+        command: -configFiles=/flyway/conf/flyway.config -locations=filesystem:/flyway/sql -connectRetries=60 migrate
+        volumes:
+            - ${MIGRATION_DIR}/migration:/flyway/sql
+            - ${MIGRATION_DIR}/flyway.config:/flyway/conf/flyway.config
+        environment: 
+            - MIGRATION_DIR
+        depends_on:
+            - servicesdb
+
+volumes: 
+    dbdata:
