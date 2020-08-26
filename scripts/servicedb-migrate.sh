@@ -1,11 +1,11 @@
 #!/bin/sh
 
+. ./common.sh
+
 migrateDb () {
-    cd ..
+    export MIGRATION_DIR=${PWD}/$1/build/db
 
-    MIGRATION_DIR=$PWD/$1/build/db 
-
-    echo "ServiceName=$1\nMIGRATION_DIR=$MIGRATION_DIR"
+    echo "SVC_NAME=$1\nMIGRATION_DIR=$MIGRATION_DIR"
 
     docker-compose run -e MIGRATION_DIR flyway
 }

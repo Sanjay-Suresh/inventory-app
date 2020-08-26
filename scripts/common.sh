@@ -1,6 +1,6 @@
 #!/bin/sh
 
 cd ..
-echo $PWD
+echo "CURRENT_DIR=${PWD}"
 
 services="inventory-service"
